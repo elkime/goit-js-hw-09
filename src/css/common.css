@@ -25,3 +25,30 @@ button[data-start], button[data-stop] {
   padding: 10px 20px; /* Espaciado interno más grande */
 }
 
+.btn {
+  padding: 20px;
+  border-color: aliceblue;
+  background-color: aliceblue;
+  border-radius: 10%;
+}
+.btns {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.timer {
+  padding-top: 30px;
+  display: flex;
+  gap: 30px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.value {
+  text-align: center;
+  font-size: 40px;
+}

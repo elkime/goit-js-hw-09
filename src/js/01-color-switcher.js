@@ -1,33 +1,27 @@
-// Obtén una referencia a los botones "Start" y "Stop" mediante atributos data
-const startButton = document.querySelector('[data-start]');
-const stopButton = document.querySelector('[data-stop]');
-
-// Agrega event listeners para los botones
-startButton.addEventListener('click', startColorChange);
-stopButton.addEventListener('click', stopColorChange);
-
-let intervalId; // Variable para almacenar el ID del intervalo
-
-function startColorChange() {
-  // Deshabilita el botón "Start" mientras se ejecuta el cambio de color
-  startButton.disabled = true;
+document.addEventListener('DOMContentLoaded', () => {
+    const start = document.querySelector('[data-start]');
+    const stop = document.querySelector('[data-stop]');
+    const body = document.querySelector('body');
+    let timerId = null;
+    start.classList.add('btn');
+    stop.classList.add('btn');
   
-  // Inicia un intervalo que cambia el color cada segundo
-  intervalId = setInterval(changeBackgroundColor, 1000);
-}
-
-function stopColorChange() {
-  // Habilita el botón "Start" cuando se detiene el cambio de color
-  startButton.disabled = false;
-
-  // Detiene el intervalo
-  clearInterval(intervalId);
-}
-
-function changeBackgroundColor() {
-  // Obtén un color aleatorio usando la función getRandomHexColor
-  const randomColor = getRandomHexColor();
-
-  // Cambia el color de fondo del body usando estilo inline
-  document.body.style.backgroundColor = randomColor;
-}
+    function getRandomHexColor() {
+      return `#${Math.floor(Math.random() * 16777215)
+        .toString(16)
+        .padStart(6, '0')}`;
+    }
+  
+    start.addEventListener('click', () => {
+      timerId = setInterval(() => {
+        body.style.backgroundColor = getRandomHexColor();
+      }, 1000);
+      start.disabled = true;
+    });
+  
+    stop.addEventListener('click', () => {
+      clearInterval(timerId);
+      start.disabled = false;
+    });
+  });
+  
