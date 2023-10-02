@@ -1,4 +1,6 @@
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import flatpickr from "flatpickr";
+// Importación adicional de estilos
+import "flatpickr/dist/flatpickr.min.css";
 
 const initDelayInput = document.getElementsByName('delay')[0];
 const delayStepInput = document.getElementsByName('step')[0];
