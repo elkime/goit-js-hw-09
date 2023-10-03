@@ -19,7 +19,8 @@
   },
   "dependencies": {
     "flatpickr": "^4.6.13",
-    "modern-normalize": "^1.1.0"
+    "modern-normalize": "^1.1.0",
+    "notiflix": "^3.2.6"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.6.0",
@@ -27,5 +28,12 @@
     "parcel-reporter-clean-dist": "^1.0.4",
     "posthtml-include": "^1.7.4"
   },
+
+  "resolutions": {
+    "notiflix/build/notiflix-notify-aio": "ruta/al/archivo/notiflix-notify-aio.js"
+  },
+  
   "browserslist": "> 0.5%, last 2 versions, not dead"
+  
 }
+
