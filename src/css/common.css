@@ -10,19 +10,12 @@ body {
   background-color: #fafafa;
   color: #212121;
   line-height: 1.5;
-  
+  position: relative;
 }
 
 img {
   display: block;
-  max-width: 100%;
-}
-
-
-/* Estilo para hacer los botones más grandes */
-button[data-start], button[data-stop] {
-  font-size: 1.5rem; /* Tamaño de fuente más grande */
-  padding: 10px 20px; /* Espaciado interno más grande */
+  max-width: 80%;
 }
 
 .btn {

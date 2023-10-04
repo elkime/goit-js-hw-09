@@ -28,12 +28,5 @@
     "parcel-reporter-clean-dist": "^1.0.4",
     "posthtml-include": "^1.7.4"
   },
-
-  "resolutions": {
-    "notiflix/build/notiflix-notify-aio": "ruta/al/archivo/notiflix-notify-aio.js"
-  },
-  
   "browserslist": "> 0.5%, last 2 versions, not dead"
-  
 }
-
