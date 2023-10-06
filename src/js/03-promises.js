@@ -1,63 +1,47 @@
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import Notiflix from 'notiflix';
 
-const initDelayInput = document.getElementsByName('delay')[0];
-const delayStepInput = document.getElementsByName('step')[0];
-const amountInput = document.getElementsByName('amount')[0];
-const submit = document.getElementById('submit-button');
-const form = document.querySelector('form');
-submit.disabled = true;
+const form = document.querySelector('.form');
+const delayInput = document.querySelector('input[name="delay"]');
+const stepInput = document.querySelector('input[name="step"]');
+const amountInput = document.querySelector('input[name="amount"]');
 
-function checkInputs() {
-  if (
-    initDelayInput.value !== '' &&
-    delayStepInput.value !== '' &&
-    amountInput.value !== ''
-  ) {
-    submit.disabled = false;
-  } else {
-    submit.disabled = true;
-  }
-}
+// Manejador de eventos para el formulario
+form.addEventListener('submit', function (e) {
+  e.preventDefault(); // Evitar el envío del formulario por defecto
 
-initDelayInput.addEventListener('input', checkInputs);
-delayStepInput.addEventListener('input', checkInputs);
-amountInput.addEventListener('input', checkInputs);
-
-submit.addEventListener('click', event => {
-  event.preventDefault();
-
-  const initDelay = parseInt(initDelayInput.value);
-  const delayStep = parseInt(delayStepInput.value);
+  const initialDelay = parseInt(delayInput.value);
+  const step = parseInt(stepInput.value);
   const amount = parseInt(amountInput.value);
 
-  let counter = 0;
-  let position = 1;
-  let delay = initDelay;
-  const timerId = setInterval(() => {
-    const shouldResolve = Math.random() > 0.3;
+  // Llamar a la función createPromise la cantidad de veces especificada
+  for (let i = 0; i < amount; i++) {
+    const position = i + 1;
+    const delay = initialDelay + i * step;
 
-    new Promise((resolve, reject) => {
-      if (shouldResolve) {
-        resolve(`promise ${position} in ${delay}ms`);
-      } else {
-        reject(` promise ${position} in ${delay}ms`);
-      }
-    }).then(
-      value => {
-        Notify.success(`✅ Fulfilled  ${value}`);
-      },
-      error => {
-        Notify.failure(`❌ Rejected ${error}`);
-      }
-    );
-
-    counter++;
-    position = position += 1;
-    delay = delay += delayStep;
-    if (counter === amount) {
-      clearInterval(timerId);
-      form.reset();
-      submit.disabled = true;
-    }
-  }, delayStep + initDelay);
+    createPromise(position, delay)
+      .then(({ position, delay }) => {
+        Notiflix.Notify.success(
+          `✅ Fulfilled promise ${position} in ${delay}ms`
+        );
+      })
+      .catch(({ position, delay }) => {
+        Notiflix.Notify.failure(
+          `❌ Rejected promise ${position} in ${delay}ms`
+        );
+      });
+  }
 });
+
+// Función para crear una Promise
+function createPromise(position, delay) {
+  return new Promise((resolve, reject) => {
+    const shouldResolve = Math.random() > 0.3;
+    setTimeout(() => {
+      if (shouldResolve) {
+        resolve({ position, delay });
+      } else {
+        reject({ position, delay });
+      }
+    }, delay);
+  });
+}
